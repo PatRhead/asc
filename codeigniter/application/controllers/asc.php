@@ -192,7 +192,6 @@ class asc extends CI_Controller
 		$adminRequestsOutput= $adminRequests->render();
 		$data['adminRequests'] = $adminRequestsOutput;
 
-		$this->load->view('twerk/adminheader.php', $data);
 		$this->load->view('twerk/admin.php', $data);
 		
 		
@@ -201,26 +200,56 @@ class asc extends CI_Controller
 		function prepEmail($primary_key)
 		{
 			$data = array(
-			'username' => $this->session->userdata('username')
+			'username' => $this->session->userdata('username'),
+			'rowKey' => $primary_key
 			);
 
 
-		 	$data['primarykey'] = $primary_key;
 		 	$this->load->view('twerk/email.php', $data);
+
+
+		 	/*$emailQuery = $this->db->query('SELECT Email FROM Student, Register, Seminars WHERE Seminars.sem_id =' .$primary_key . ' AND Student.s_id = Register.s_id AND Register.sem_id = Seminars.sem_id');
+		 	$list = array();
+
+		 	foreach ($emailQuery->result_array() as $row)
+			{
+			   $list[] .= $row['Email'];
+			}*/
+
+
+
+
 		}
 
 		function sendEmail()
 		{
+
+			$primary_key = $this->input->post('to');
+			$message = $this->input->post('message');
+			$subject = $this->input->post('subject');
+			
+			$emailQuery = $this->db->query('SELECT Email FROM Student, Register, Seminars WHERE Seminars.sem_id =' .$primary_key . ' AND Student.s_id = Register.s_id AND Register.sem_id = Seminars.sem_id');
+		 	$list = array();
+
+		 	foreach ($emailQuery->result_array() as $row)
+			{
+			   $emailExplode = explode("mailbox.", $row['Email']);
+			   $email = $emailExplode[0] . $emailExplode[1];
+			   $list[] .= $email;
+			}
+
 			$this->load->library('email');
 
 			$this->email->from('dotsonj2@winthrop.edu', 'Jesse Dotson');
-			$this->email->to('rheadp2@winthrop.edu');
-			$this->email->subject('Email Test');
-			$this->email->message('Testing the email class.');
+			$this->email->to($list);
+			$this->email->subject($subject);
+			$this->email->message($message);
 
 			$this->email->send();
 
-			echo $this->email->print_debugger();
+			echo 'Email Success! <a href = "' . site_url("/asc/adminView") . '">Return to Admin Dashboard</a>';
+
+
 		}
 			
 	}
