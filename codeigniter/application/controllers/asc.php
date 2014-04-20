@@ -179,6 +179,7 @@ class asc extends CI_Controller
 		$adminSeminars->set_theme('datatables');
 		$adminSeminars->set_table('Seminars');
 		$adminSeminars->set_subject('Seminar');
+		$adminSeminars->add_action('Email', '', 'asc/prepEmail', '');
 		$adminSeminarsOutput = $adminSeminars->render();
 		$data['adminSeminars'] = $adminSeminarsOutput;
 
@@ -197,6 +198,11 @@ class asc extends CI_Controller
 		
 	}	
 
+		function prepEmail($primary_key)
+		{
+		 	$data['primarykey'] = $primary_key;
+		 	$this->load->view('twerk/email.php', $data);
+		}
 
 		function sendEmail()
 		{
