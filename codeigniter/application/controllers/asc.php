@@ -174,25 +174,43 @@ class asc extends CI_Controller
 		}
 
 		//set admin Seminars view
-		$adminSeminars= new grocery_CRUD();
-		$adminSeminars->set_model('custom_query_model');
+		$adminSeminars = new grocery_CRUD();
+		//$adminSeminars->set_model('custom_query_model');
 		$adminSeminars->set_theme('datatables');
 		$adminSeminars->set_table('Seminars');
 		$adminSeminars->set_subject('Seminar');
-		$adminSeminarsOutput= $registered->render();
+		$adminSeminarsOutput = $adminSeminars->render();
 		$data['adminSeminars'] = $adminSeminarsOutput;
+
 
 		//set admin Requests View
 		$adminRequests = new grocery_CRUD();
-		$adminRequests->set_model('custom_query_model');
+		//$adminRequests->set_model('custom_query_model');
 		$adminRequests->set_table('Request');
 		$adminRequests->set_subject('Request');
-		$adminRequestsOutput= $registered->render();
+		$adminRequestsOutput= $adminRequests->render();
 		$data['adminRequests'] = $adminRequestsOutput;
-		
+
+		$this->load->view('twerk/adminheader.php', $data);
+		$this->load->view('twerk/admin.php', $data);
 		
 		
 	}	
-	
-}
+
+
+		function sendEmail()
+		{
+			$this->load->library('email');
+
+			$this->email->from('dotsonj2@winthrop.edu', 'Jesse Dotson');
+			$this->email->to('rheadp2@winthrop.edu');
+			$this->email->subject('Email Test');
+			$this->email->message('Testing the email class.');
+
+			$this->email->send();
+
+			echo $this->email->print_debugger();
+		}
+			
+	}
 ?>

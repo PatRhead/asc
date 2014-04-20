@@ -1,4 +1,4 @@
-<?php include 'header.php'; ?>
+<?php include 'adminheader.php'; ?>
 <div class="row">
       <div class="large-12 columns">
         <h1>Dashboard</h1>
@@ -8,7 +8,7 @@
       <div class="large-12 medium-12 columns">
       	<div class="panel">
 	        <h3>Upcoming Seminars</h3>
-		<?php echo $seminars->output; ?>
+		<?php echo $adminSeminars->output; ?>
       	</div>
       </div>
  </div>
@@ -16,7 +16,7 @@
       <div class="large-12 columns">
       	<div class="panel">
 	        <h3>Your Registered Seminars</h3>
-	        <?php echo $registered->output; ?>
+	        <?php echo $adminRequests->output; ?>
       	</div>
       </div>
   
