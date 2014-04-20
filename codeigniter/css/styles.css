@@ -1,4 +1,4 @@
-/* Author: Julie M. Brown for Winthrop University */ 
+/* Author: Julie M. Brown for Winthrop University */
 
 .header {
 	padding: 0 !important;
@@ -31,4 +31,12 @@
 	margin-top: 20px;
 	vertical-align: middle;
 
+}
+
+.emailform {
+	padding-top: 40px;
+}
+
+.emailbutton {
+	margin-left: 15px;
 }
