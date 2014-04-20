@@ -1,4 +1,4 @@
-/* Author: Julie M. Brown for Winthrop University */ 
+/* Author: Julie M. Brown, Patrick Rhead for Winthrop University */
 
 .header {
 	padding: 0 !important;
@@ -9,12 +9,10 @@
 	min-height: 60px;
 }
 
-
 .seminaritems {
 	background-color:#c8c8c8;
 	padding-left:10px;
 }
-
 
 .seminaritems ul {
 	display:inline-block;
