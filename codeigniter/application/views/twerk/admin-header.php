@@ -6,11 +6,11 @@
     <title>Winthrop | ASC</title>
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/foundation.css" />
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/styles.css" />
-	<?php
-		foreach($seminars->css_files as $file): ?>
+	<?php 
+		foreach($seminars->$css_files as $file): ?>
 			<link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
 		<?php endforeach; ?>
-		<?php foreach($seminars->js_files as $file): ?>
+		<?php foreach($seminars->$js_files as $file): ?>
 			<script src="<?php echo $file; ?>"></script>
 		<?php endforeach; ?>
 
@@ -28,11 +28,11 @@
   <section class="top-bar-section">
     <!-- Right Nav Section -->
     <ul class="right">
-      <li class="active"><a href="#"><?php echo $username ?></a></li>
+      <li class="active"><a href="#">User Name</a></li>
       <li class="has-dropdown">
         <a href="#">Options</a>
         <ul class="dropdown">
-          <li><a href="<?php echo base_url();?>index.php/auth/logout">Logout</a></li>
+          <li><a href="#">Sign Out</a></li>
         </ul>
       </li>
     </ul>
@@ -43,4 +43,4 @@
     </ul>
   </section>
 </nav>
-    <!--End Navigation-->
+    <!--End Navigation--> 

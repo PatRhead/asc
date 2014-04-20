@@ -17,7 +17,7 @@ class asc extends CI_Controller
 
 	function index()
 	{
-		
+
 
 		$data = array(
 			'username' => $this->session->userdata('username'),
@@ -25,8 +25,8 @@ class asc extends CI_Controller
 			'mail' =>$this->session->userdata('mail'),
 			);
 
-		
-		
+
+
 		$this->load->view('twerk/index.php', $data);
 
 
@@ -38,20 +38,20 @@ class asc extends CI_Controller
 		*/
 	}
 
-	
+
     function _example_output($output = null)
 
     {
-        $this->load->view('our_template.php',$output);    
+        $this->load->view('our_template.php',$output);
     }
- 
-    
+
+
     function offices()
 
     {
     	$this->grocery_crud->set_table('Request');
         $output = $this->grocery_crud->render();
- 
+
         $this->_example_output($output);
 
     }
@@ -70,7 +70,7 @@ class asc extends CI_Controller
 		$NameExploded = explode(", ", $data['displayName']);
 		$FirstLast = $NameExploded[1]  . " " . $NameExploded[0];
 
-		
+
 		//query DB to test if user is in it.
 		$newQuery = $this->db->query('SELECT * FROM Student WHERE username ="'. $data['username'].'"');
 		//$rows = $newQuery->num_rows();
@@ -106,7 +106,7 @@ class asc extends CI_Controller
 		$registered->add_action('Cancel', base_url('img/close.png'), 'asc/cancelreg', '');
 		$studentOutput = $registered->render();
 		$data['registered'] = $studentOutput;
-	 
+
 		//$this->_example_output($output);
 		$this->load->view('twerk/student.php', $data);
 
@@ -125,7 +125,7 @@ class asc extends CI_Controller
 		$studentQuery = $this->db->query('SELECT * FROM Student WHERE username ="'. $data['username'].'"');
 		if ($studentQuery->num_rows() > 0)
 		{
-		   $row = $studentQuery->row(); 
+		   $row = $studentQuery->row();
 
 		   $s_id = $row->s_id;
 		}
@@ -150,11 +150,11 @@ class asc extends CI_Controller
 		$studentQuery = $this->db->query('SELECT * FROM Student WHERE username ="'. $data['username'].'"');
 		if ($studentQuery->num_rows() > 0)
 		{
-		   $row = $studentQuery->row(); 
+		   $row = $studentQuery->row();
 
 		   $s_id = $row->s_id;
 		}
-		$sem_id = $primary_key; 
+		$sem_id = $primary_key;
 
 		$register = $this->db->query('INSERT into Register VALUES ('. $s_id .', '. $sem_id .')');
 		redirect('./asc/studentView');
@@ -167,10 +167,10 @@ class asc extends CI_Controller
 			'displayName' => $this->session->userdata('displayName'),
 		);*/
 
-		
-		
-		
-	}	
-	
+
+
+
+	}
+
 }
 ?>
