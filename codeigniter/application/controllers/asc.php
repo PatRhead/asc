@@ -86,8 +86,8 @@ class asc extends CI_Controller
 		$this->grocery_crud->unset_delete();
 		$this->grocery_crud->unset_add();
 		$this->grocery_crud->unset_edit();
-		$this->grocery_crud->unset_columns('created');
-		$this->grocery_crud->unset_columns('l_id');
+		$this->grocery_crud->unset_operations();
+		$this->grocery_crud->unset_columns('created', 'l_id');
 		$this->grocery_crud->add_action('Register', 'http://www.grocerycrud.com/assets/uploads/general/smiley.png', 'asc/register', '');
 		$output = $this->grocery_crud->render();
 		$data['seminars'] = $output;
@@ -99,8 +99,7 @@ class asc extends CI_Controller
 		$registered->set_theme('datatables');
 		$registered->set_table('Seminars');
 		$registered->set_subject('Seminar');
-		$registered->unset_columns('created');
-		$registered->unset_columns('l_id');
+		$registered->unset_columns('created', 'l_id');
 		$registered->unset_operations();
 		$where = "WHERE Student.username ='" .$data['username'] ."' AND  Student.s_id = Register.s_id AND Register.sem_id = Seminars.sem_id";
 		$registered->basic_model->set_query_str('SELECT Seminars.sem_id, Seminars.Name, Seminars.Building, Seminars.timedate, Seminars.Description, Seminars.Materials FROM Register, Seminars, Student ' . $where); //Query text here
