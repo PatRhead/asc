@@ -200,6 +200,11 @@ class asc extends CI_Controller
 
 		function prepEmail($primary_key)
 		{
+			$data = array(
+			'username' => $this->session->userdata('username')
+			);
+
+
 		 	$data['primarykey'] = $primary_key;
 		 	$this->load->view('twerk/email.php', $data);
 		}
