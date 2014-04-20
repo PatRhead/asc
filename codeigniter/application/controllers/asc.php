@@ -93,6 +93,7 @@ class asc extends CI_Controller
 		$data['seminars'] = $output;
 
 		//render crud table for students registered seminars
+		//added a new comment to test git! 
 		$registered = new grocery_CRUD();
 		$registered->set_model('custom_query_model');
 		$registered->set_theme('datatables');
