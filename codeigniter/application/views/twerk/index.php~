@@ -1,0 +1,204 @@
+<!doctype html>
+<?php echo $username, "  ", $displayName, "  ", $mail; ?>
+<html class="no-js" lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Winthrop | ASC</title>
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/foundation.css" />
+    <link rel="stylesheet" href="<?php echo base_url(); ?>css/styles.css" />
+
+    <script src="<?php echo base_url(); ?>js/vendor/modernizr.js"></script>
+  </head>
+  <body>
+    <nav class="top-bar" data-topbar>
+  <ul class="title-area">
+    <li class="name">
+      <h1><a href="#">Winthrop University</a></h1>
+    </li>
+    <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+  </ul>
+
+  <section class="top-bar-section">
+    <!-- Right Nav Section -->
+    <ul class="right">
+      <li class="active"><a href="#"><?php echo $username;?></a></li>
+      <li class="has-dropdown">
+        <a href="#">Options</a>
+        <ul class="dropdown">
+          <li><a href="#">Sign Out</a></li>
+        </ul>
+      </li>
+    </ul>
+
+    <!-- Left Nav Section -->
+    <ul class="left">
+      <li><a href="#">Left Nav Button</a></li>
+    </ul>
+  </section>
+</nav>
+    <!--End Navigation--> 
+    <!--Begin Body--> 
+    <div class="row">
+      <div class="large-12 columns">
+        <h1>Dashboard</h1>
+      </div>
+    </div>
+    
+    <div class="row">
+      <div class="large-12 columns">
+      	<div class="panel">
+	        <h3>This is totally a  module </h3>
+	        <p>Where things will go</p>
+	        <div class="row">
+	        	<div class="large-4 medium-4 columns">
+	    		<p><a href="">I can even do buckets</a><br />SEE BUCKETS</p>
+	    	</div>
+	        	<div class="large-4 medium-4 columns">
+	        		<p><a href="">Bucket 2</a><br />Quis sartorial XOXO cornhole.  Chillwave ugh tofu culpa  nesciunt.  Quinoa High Life small batch excepteur, dreamcatcher retro drinking vinegar mumblecore .</p></p>
+	        	</div>
+	        	<div class="large-4 medium-4 columns">
+	        		<p><a href=""> Im awesome</a><br />uis sartorial XOXO cornhole.  Chillwave ugh tofu culpa  nesciunt.  Quinoa High Life small batch excepteur, dreamcatcher retro drinking vinegar mumblecore </p>
+	        	</div>        
+					</div>
+      	</div>
+      </div>
+    </div>
+      
+    <div class="row">
+          <div class="large-8 columns">
+            <div class="panel">
+              <p><strong>WHOOP another module</p>
+            </div>
+          </div>
+        </div>
+    
+    
+    <div class="row">
+      <div class="large-8 medium-8 columns">
+        <h5>Here&rsquo;s your basic grid:</h5>
+        <!-- Grid Example -->
+
+        <div class="row">
+          <div class="large-12 columns">
+            <div class="callout panel">
+              <p><strong>This is a twelve column section in a row.</strong> Each of these includes a div.panel element so you can see where the columns are - it's not required at all for the grid.</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-6 medium-6 columns">
+            <div class="callout panel">
+              <p>Six columns</p>
+            </div>
+          </div>
+          <div class="large-6 medium-6 columns">
+            <div class="callout panel">
+              <p>Six columns</p>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="large-4 medium-4 small-4 columns">
+            <div class="callout panel">
+              <p>Four columns</p>
+            </div>
+          </div>
+          <div class="large-4 medium-4 small-4 columns">
+            <div class="callout panel">
+              <p>Four columns</p>
+            </div>
+          </div>
+          <div class="large-4 medium-4 small-4 columns">
+            <div class="callout panel">
+              <p>Four columns</p>
+            </div>
+          </div>
+        </div>
+        
+        <hr />
+                
+        <h5>Lookie... RESPONSIVE FORMS:</h5>
+        <form>
+				  <div class="row">
+				    <div class="large-12 columns">
+				      <label>Input Label</label>
+				      <input type="text" placeholder="large-12.columns" />
+				    </div>
+				  </div>
+				  <div class="row">
+				    <div class="large-4 medium-4 columns">
+				      <label>Input Label</label>
+				      <input type="text" placeholder="large-4.columns" />
+				    </div>
+				    <div class="large-4 medium-4 columns">
+				      <label>Input Label</label>
+				      <input type="text" placeholder="large-4.columns" />
+				    </div>
+				    <div class="large-4 medium-4 columns">
+				      <div class="row collapse">
+				        <label>Input Label</label>
+				        <div class="small-9 columns">
+				          <input type="text" placeholder="small-9.columns" />
+				        </div>
+				        <div class="small-3 columns">
+				          <span class="postfix">.com</span>
+				        </div>
+				      </div>
+				    </div>
+				  </div>
+				  <div class="row">
+				    <div class="large-12 columns">
+				      <label>Select Box</label>
+				      <select>
+				        <option value="husker">Husker</option>
+				        <option value="starbuck">Starbuck</option>
+				        <option value="hotdog">Hot Dog</option>
+				        <option value="apollo">Apollo</option>
+				      </select>
+				    </div>
+				  </div>
+				  <div class="row">
+				    <div class="large-6 medium-6 columns">
+				      <label>Choose Your Favorite</label>
+				      <input type="radio" name="pokemon" value="Red" id="pokemonRed"><label for="pokemonRed">Radio 1</label>
+				      <input type="radio" name="pokemon" value="Blue" id="pokemonBlue"><label for="pokemonBlue">Radio 2</label>
+				    </div>
+				    <div class="large-6 medium-6 columns">
+				      <label>Check these out</label>
+				      <input id="checkbox1" type="checkbox"><label for="checkbox1">Checkbox 1</label>
+				      <input id="checkbox2" type="checkbox"><label for="checkbox2">Checkbox 2</label>
+				    </div>
+				  </div>
+				  <div class="row">
+				    <div class="large-12 columns">
+				      <label>Textarea Label</label>
+				      <textarea placeholder="small-12.columns"></textarea>
+				    </div>
+				  </div>
+				</form>
+      </div>     
+
+      <div class="large-4 medium-4 columns">
+			  <h5>Try one of these buttons:</h5>
+			  <p><a href="#" class="small button">Simple Button</a><br/>
+        <a href="#" class="small radius button">Radius Button</a><br/>
+        <a href="#" class="small round button">Round Button</a><br/>            
+        <a href="#" class="medium success button">Success Btn</a><br/>
+        <a href="#" class="medium alert button">Alert Btn "OOh kill em"</a><br/>
+        <a href="#" class="medium secondary button">Secondary Btn</a></p>           
+				<div class="panel">
+        	<h5>Such wow</h5>
+        	<p>uis sartorial XOXO cornhole.  Chillwave ugh tofu culpa  nesciunt.  Quinoa High Life small batch excepteur, dreamcatcher retro drinking vinegar mumblecore </p>
+        	<a href="" class="small button">Go to where this button says</a>          
+        </div>
+      </div>
+    </div>
+    
+    <script src="<?php echo base_url(); ?>js/vendor/jquery.js"></script>
+    <script src="<?php echo base_url(); ?>js/foundation.min.js"></script>
+    <script>
+      $(document).foundation();
+    </script>
+  </body>
+</html>

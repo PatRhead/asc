@@ -1,0 +1,94 @@
+<?php
+class asc extends CI_Controller
+{
+
+	function __construct()
+	    	{
+			parent::__construct();
+
+
+			$this->load->library('session');
+			$this->load->helper('url');
+			$this->load->database();
+			/*------------------------------*/
+
+			$this->load->library('grocery_CRUD');
+		 
+	    	}
+
+	function index()
+	{
+		
+
+		$data = array(
+			'username' => $this->session->userdata('username'),
+			'displayName' => $this->session->userdata('displayName'),
+			'mail' =>$this->session->userdata('mail'),
+			);
+
+		
+		
+		$this->load->view('twerk/index.php', $data);
+
+
+
+		/*echo 'Hello world!';
+		echo $this->session->userdata('username');
+		echo $this->session->userdata('displayName');
+		echo $this->session->userdata('mail');
+		*/
+	}
+
+	
+    function _example_output($output = null)
+
+    {
+        $this->load->view('our_template.php',$output);    
+    }
+ 
+    
+    function offices()
+
+    {
+    	$this->grocery_crud->set_table('Request');
+        $output = $this->grocery_crud->render();
+ 
+        $this->_example_output($output);
+
+    }
+
+	function studentView()
+	{
+		//send session data to the view
+		$data = array(
+			'username' => $this->session->userdata('username'),
+			'displayName' => $this->session->userdata('displayName'),
+			'mail' =>$this->session->userdata('mail')
+			);
+		
+
+		//Call our seminars table for the student view
+		$this->grocery_crud->set_table('Seminars');
+		$output = $this->grocery_crud->render();
+		$data['seminars'] = $output;
+
+		//call specific students registered seminars
+		$registered = new grocery_CRUD();
+		$registered->set_table('Register');
+		$studentOutput = $registered->render();
+		$data['registered'] = $studentOutput;
+	 
+		//$this->_example_output($output);
+		$this->load->view('twerk/student.php', $data);
+
+
+
+		
+
+		
+
+
+	}
+	
+}
+?>

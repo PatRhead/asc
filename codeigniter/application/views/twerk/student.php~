@@ -1,0 +1,41 @@
+<?php include 'header.php'; ?>
+<div class="row">
+      <div class="large-12 columns">
+        <h1>Dashboard</h1>
+      </div>
+    </div>
+ <div class="row">
+      <div class="large-8 medium-8 columns">
+      	<div class="panel">
+	        <h3>Upcoming Seminars</h3>
+		<?php echo $seminars->output; ?>
+			<div class="seminaritems">
+				<ul>
+					<li>Title of Seminar</li>
+					<li>Description</li>
+					<li>Location</li>
+					<li>Time</li>
+					<li>Materials</li>
+				</ul>
+				<a href="" class="small button">Register</a>
+			</div>
+      	</div>
+      </div>
+      <div class="large-4 medium-4 columns">
+      	<div class="panel">
+      		<h3>Notifications</h3>
+      		<p></p>
+      	</div>
+      </div>
+ </div>
+ <div class="row">
+      <div class="large-12 columns">
+      	<div class="panel">
+	        <h3>Your Registered Seminars</h3>
+	        <p>Seminar</p>
+      	</div>
+      </div>
+  
+ </div>
+
+<?php include 'footer.php'; ?>
