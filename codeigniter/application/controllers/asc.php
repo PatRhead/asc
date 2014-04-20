@@ -162,11 +162,33 @@ class asc extends CI_Controller
 
 	function adminView()
 	{
-		/*$data = array(
-			'username' => $this->session->userdata('username'),
-			'displayName' => $this->session->userdata('displayName'),
-		);*/
+		
+		$data = array(
+			'username' => $this->session->userdata('username')
+			);
 
+		$adminQuery = $this->db->query('SELECT * FROM Admin WHERE username ="'. $data['username'].'"');
+		if ($adminQuery->num_rows() == 0)
+		{
+		   redirect('./auth/login');
+		}
+
+		//set admin Seminars view
+		$adminSeminars= new grocery_CRUD();
+		$adminSeminars->set_model('custom_query_model');
+		$adminSeminars->set_theme('datatables');
+		$adminSeminars->set_table('Seminars');
+		$adminSeminars->set_subject('Seminar');
+		$adminSeminarsOutput= $registered->render();
+		$data['adminSeminars'] = $adminSeminarsOutput;
+
+		//set admin Requests View
+		$adminRequests = new grocery_CRUD();
+		$adminRequests->set_model('custom_query_model');
+		$adminRequests->set_table('Request');
+		$adminRequests->set_subject('Request');
+		$adminRequestsOutput= $registered->render();
+		$data['adminRequests'] = $adminRequestsOutput;
 		
 		
 		
