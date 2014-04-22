@@ -153,8 +153,19 @@ class asc extends CI_Controller
 		}
 		$sem_id = $primary_key; 
 
+		
 		$register = $this->db->query('INSERT into Register VALUES ('. $s_id .', '. $sem_id .')');
-		redirect('./asc/studentView');
+		if(!$register)
+		{
+			echo 'Can not have a duplicate register! <a href = "' . site_url("/asc/studentView") . '">Return to Student View</a>';	
+		}
+		else
+		{
+			redirect('./asc/studentView');
+		}
+
+			
+
 	}
 
 	//////////////////////////////////////* All actions for the Admin View Below *//////////////////////////////////////////
