@@ -3,61 +3,51 @@ class asc extends CI_Controller
 {
 
 	function __construct()
-	    	{
-			parent::__construct();
+	{
+		parent::__construct();
 
 
-			$this->load->library('session');
-			$this->load->helper('url');
-			$this->load->database();
-			/*------------------------------*/
+		$this->load->library('session');
+		$this->load->helper('url');
+		$this->load->database();
+		/*------------------------------*/
 
-			$this->load->library('grocery_CRUD');
-	    	}
+		$this->load->library('grocery_CRUD');
+	}
 
 	function index()
 	{
 		
-
-		$data = array(
-			'username' => $this->session->userdata('username'),
-			'displayName' => $this->session->userdata('displayName'),
-			'mail' =>$this->session->userdata('mail'),
-			);
-
-		
-		
-		$this->load->view('twerk/index.php', $data);
+		$username = $this->session->userdata('username');
 
 
+		if($this->session->userdata('logged_in'))
+		{
+			
+			$adminQuery = $this->db->query('SELECT * FROM Admin WHERE username ="'. $data['username'].'"');
+			if ($adminQuery->num_rows() > 0)
+			{
+			   redirect('./asc/adminView');
+			}
+			else
+			{
+				redirect('./asc/studentView');
+			}
+		}
+		else
+		{
+			$this->load->view('twerk/index.php');
+		}	
 
-		/*echo 'Hello world!';
-		echo $this->session->userdata('username');
-		echo $this->session->userdata('displayName');
-		echo $this->session->userdata('mail');
-		*/
 	}
-
-	
-    function _example_output($output = null)
-
-    {
-        $this->load->view('our_template.php',$output);    
-    }
- 
-    
-    function offices()
-
-    {
-    	$this->grocery_crud->set_table('Request');
-        $output = $this->grocery_crud->render();
- 
-        $this->_example_output($output);
-
-    }
-
+	/////////////////////////////////////////////////All actions for the student view////////////////////////////////////////////////
 	function studentView()
 	{
+
+		if($this->session->userdata('logged_in') == FALSE)
+		{
+			redirect('./asc/index');
+		}
 		//send session data to the view
 		$data = array(
 			'username' => $this->session->userdata('username'),
@@ -71,14 +61,23 @@ class asc extends CI_Controller
 		$FirstLast = $NameExploded[1]  . " " . $NameExploded[0];
 
 		
-		//query DB to test if user is in it.
-		$newQuery = $this->db->query('SELECT * FROM Student WHERE username ="'. $data['username'].'"');
-		//$rows = $newQuery->num_rows();
-		if ($newQuery->num_rows() == 0)
+		//check to see if current user is Admin. If they are, send them to admin page.
+		//Else, check if the user is a current student, if not, make them one. 
+		$adminQuery = $this->db->query('SELECT * FROM Admin WHERE username ="'. $data['username'].'"');
+		if ($adminQuery->num_rows() > 0)
 		{
-			$query = $this->db->query('INSERT INTO Student (FnameLname, Email, username, College) values ("'. $FirstLast .'", "'. $data['mail'] .'", "'. $data['username'] . '", "Arts")');
+		   redirect('./asc/adminView');
 		}
-
+		else
+		{
+			//query DB to test if user is in it.
+			$newQuery = $this->db->query('SELECT * FROM Student WHERE username ="'. $data['username'].'"');
+			//$rows = $newQuery->num_rows();
+			if ($newQuery->num_rows() == 0)
+			{
+				$query = $this->db->query('INSERT INTO Student (FnameLname, Email, username, College) values ("'. $FirstLast .'", "'. $data['mail'] .'", "'. $data['username'] . '", "Arts")');
+			}
+		}
 
 		//Call our seminars table for the student view
 		$this->grocery_crud->set_table('Seminars');
@@ -93,7 +92,6 @@ class asc extends CI_Controller
 		$data['seminars'] = $output;
 
 		//render crud table for students registered seminars
-		//added a new comment to test git! 
 		$registered = new grocery_CRUD();
 		$registered->set_model('custom_query_model');
 		$registered->set_theme('datatables');
@@ -107,7 +105,6 @@ class asc extends CI_Controller
 		$studentOutput = $registered->render();
 		$data['registered'] = $studentOutput;
 	 
-		//$this->_example_output($output);
 		$this->load->view('twerk/student.php', $data);
 
 	}
@@ -160,6 +157,28 @@ class asc extends CI_Controller
 		redirect('./asc/studentView');
 	}
 
+	//////////////////////////////////////* All actions for the Admin View Below *//////////////////////////////////////////
+
+
+	//All output session data and grocery crud tables here
+	function _admin_output($output = null)
+	{
+		$data = array(
+			'username' => $this->session->userdata('username')
+			);
+
+		$adminQuery = $this->db->query('SELECT * FROM Admin WHERE username ="'. $data['username'].'"');
+		if ($adminQuery->num_rows() == 0)
+		{
+		   redirect('./auth/login');
+		}
+
+		$data['crudOutput'] = $output;
+
+		$this->load->view('twerk/admin.php', $data);
+	}
+
+	//default page for the Admin. Contains the seminars table
 	function adminView()
 	{
 		
@@ -175,82 +194,142 @@ class asc extends CI_Controller
 
 		//set admin Seminars view
 		$adminSeminars = new grocery_CRUD();
-		//$adminSeminars->set_model('custom_query_model');
 		$adminSeminars->set_theme('datatables');
 		$adminSeminars->set_table('Seminars');
 		$adminSeminars->set_subject('Seminar');
 		$adminSeminars->add_action('Email', '', 'asc/prepEmail', '');
-		$adminSeminarsOutput = $adminSeminars->render();
-		$data['adminSeminars'] = $adminSeminarsOutput;
+		$output= $adminSeminars->render();
 
+		$this->_admin_output($output);
+		
+	}
 
+	function adminStudent()
+	{
+		//set admin Seminars view
+		$adminStudent = new grocery_CRUD();
+		$adminStudent->set_theme('datatables');
+		$adminStudent->set_table('Student');
+		$adminStudent->set_subject('Student');
+		$adminStudent->add_action('Email', '', 'asc/prepEmail', '');
+		$output= $adminStudent->render();
+
+		$this->_admin_output($output);
+	}
+
+	function adminRequest()
+	{
 		//set admin Requests View
 		$adminRequests = new grocery_CRUD();
-		//$adminRequests->set_model('custom_query_model');
+		//$adminRequests->set_theme('datatables');
 		$adminRequests->set_table('Request');
 		$adminRequests->set_subject('Request');
-		$adminRequestsOutput= $adminRequests->render();
-		$data['adminRequests'] = $adminRequestsOutput;
+		$output = $adminRequests->render();
 
-		$this->load->view('twerk/admin.php', $data);
-		
-		
-	}	
-
-		function prepEmail($primary_key)
-		{
-			$data = array(
-			'username' => $this->session->userdata('username'),
-			'rowKey' => $primary_key
-			);
-
-
-		 	$this->load->view('twerk/email.php', $data);
-
-
-		 	/*$emailQuery = $this->db->query('SELECT Email FROM Student, Register, Seminars WHERE Seminars.sem_id =' .$primary_key . ' AND Student.s_id = Register.s_id AND Register.sem_id = Seminars.sem_id');
-		 	$list = array();
-
-		 	foreach ($emailQuery->result_array() as $row)
-			{
-			   $list[] .= $row['Email'];
-			}*/
-
-
-
-
-		}
-
-		function sendEmail()
-		{
-
-			$primary_key = $this->input->post('to');
-			$message = $this->input->post('message');
-			$subject = $this->input->post('subject');
-			
-			$emailQuery = $this->db->query('SELECT Email FROM Student, Register, Seminars WHERE Seminars.sem_id =' .$primary_key . ' AND Student.s_id = Register.s_id AND Register.sem_id = Seminars.sem_id');
-		 	$list = array();
-
-		 	foreach ($emailQuery->result_array() as $row)
-			{
-			   $emailExplode = explode("mailbox.", $row['Email']);
-			   $email = $emailExplode[0] . $emailExplode[1];
-			   $list[] .= $email;
-			}
-
-			$this->load->library('email');
-
-			$this->email->from('dotsonj2@winthrop.edu', 'Jesse Dotson');
-			$this->email->to($list);
-			$this->email->subject($subject);
-			$this->email->message($message);
-
-			$this->email->send();
-
-			echo 'Email Success! <a href = "' . site_url("/asc/adminView") . '">Return to Admin Dashboard</a>';
-
-
-		}
-			
+		$this->_admin_output($output);
 	}
+
+	function adminLocation()
+	{
+		//set admin Location View
+		$adminLocation = new grocery_CRUD();
+		//$adminLocation->set_theme('datatables');
+		$adminLocation->set_table('Location');
+		$adminLocation->set_subject('Location');
+		$output = $adminLocation->render();
+
+		$this->_admin_output($output);
+	}
+
+	function adminCollege()
+	{
+		//set admin College View
+		$adminCollege = new grocery_CRUD();
+		//$adminCollege->set_theme('datatables');
+		$adminCollege->set_table('College');
+		$adminCollege->set_subject('College');
+		$output = $adminCollege->render();
+
+		$this->_admin_output($output);
+	}
+
+
+	function requestsPage()
+	{
+		//load faculty requests page
+		$this->load->view('twerk/requests.php');
+	}
+
+	function processRequest()
+	{
+		//process the request from the faculty
+		$name = $this->input->post('name');
+		$desc = $this->input->post('desc');
+		$timedate = $this->input->post('timedate');
+		$materials = $this->input->post('materials');
+
+		if($name && $desc && $timedate && $materials)
+		{
+			$insertRequest = $this->db->query('INSERT INTO Request (Name, timedate, Description, Materials) VALUES ("'.$name.'", "'.$timedate.'", "'.$desc.'", "'.$materials.'")');
+			if($this->db->affected_rows() > 0)
+			{
+				echo 'Success! <a href = "' . site_url("/asc/requestsPage") . '">Return to Requests Page</a>';
+			}
+			else
+			{
+				echo 'Something went wrong. Try again <a href = "' . site_url("/asc/requestsPage") . '">Return to Requests Page</a>';
+			}
+		}
+		else
+		{
+			echo 'Please fill all fields. <a href = "' . site_url("/asc/requestsPage") . '">Return to Requests Page</a>';
+		}
+	}
+
+	function prepEmail($primary_key)
+	{
+		$data = array(
+		'username' => $this->session->userdata('username'),
+		'rowKey' => $primary_key
+		);
+
+
+	 	$this->load->view('twerk/email.php', $data);
+
+	}
+
+	function sendEmail()
+	{
+
+		$primary_key = $this->input->post('to');
+		$message = $this->input->post('message');
+		$subject = $this->input->post('subject');
+		
+		$emailQuery = $this->db->query('SELECT Email FROM Student, Register, Seminars WHERE Seminars.sem_id =' .$primary_key . ' AND Student.s_id = Register.s_id AND Register.sem_id = Seminars.sem_id');
+	 	$list = array();
+
+	 	foreach ($emailQuery->result_array() as $row)
+		{
+		   $emailExplode = explode("mailbox.", $row['Email']);
+		   $email = $emailExplode[0] . $emailExplode[1];
+		   $list[] .= $email;
+		}
+
+		$this->load->library('email');
+
+		$this->email->from('dotsonj2@winthrop.edu', 'Jesse Dotson');
+		$this->email->to($list);
+		$this->email->subject($subject);
+		$this->email->message($message);
+
+		$this->email->send();
+
+		echo 'Email Success! <a href = "' . site_url("/asc/adminView") . '">Return to Admin Dashboard</a>';
+
+
+	}
+			
+}
+
+
 ?>

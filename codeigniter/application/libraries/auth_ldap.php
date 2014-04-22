@@ -106,7 +106,7 @@ class auth_ldap {
 			    'mail' => $user_info['mail']);
 
         $this->ci->session->set_userdata($customdata);
-	$this->ci->load->view('twerk/index.php',$data);
+	    $this->ci->load->view('twerk/index.php',$data);
         return TRUE;
     }
 

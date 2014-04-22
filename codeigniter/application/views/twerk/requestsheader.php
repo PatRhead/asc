@@ -12,22 +12,12 @@
     <nav class="top-bar" data-topbar>
   <ul class="title-area">
     <li class="name">
-      <h1><a href='<?php echo site_url('asc/adminView')?>'>Winthrop University</a></h1>
+      <h1><a href="#">Winthrop University</a></h1>
     </li>
     <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
   </ul>
 
   <section class="top-bar-section">
-    <!-- Right Nav Section -->
-    <ul class="right">
-      <li class="active"><a href="#"><?php echo $username ?></a></li>
-      <li class="has-dropdown">
-        <a href="#">Options</a>
-        <ul class="dropdown">
-          <li><a href="<?php echo base_url();?>index.php/auth/logout">Sign Out</a></li>
-        </ul>
-      </li>
-    </ul>
   </section>
 </nav>
     <!--End Navigation--> 

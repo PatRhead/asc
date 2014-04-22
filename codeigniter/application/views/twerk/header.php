@@ -20,7 +20,7 @@
     <nav class="top-bar" data-topbar>
   <ul class="title-area">
     <li class="name">
-      <h1><a href="#">Winthrop University</a></h1>
+      <h1><a href='<?php echo site_url('asc/studentView')?>'>Winthrop University</a></h1>
     </li>
     <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
   </ul>
@@ -35,11 +35,6 @@
           <li><a href="<?php echo base_url();?>index.php/auth/logout">Logout</a></li>
         </ul>
       </li>
-    </ul>
-
-    <!-- Left Nav Section -->
-    <ul class="left">
-      <li><a href="#">Left Nav Button</a></li>
     </ul>
   </section>
 </nav>

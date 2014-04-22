@@ -7,10 +7,10 @@
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/foundation.css" />
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/styles.css" />
 	<?php 
-		foreach($adminRequests->css_files as $file): ?>
+		foreach($crudOutput->css_files as $file): ?>
 			<link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
 		<?php endforeach; ?>
-		<?php foreach($adminRequests->js_files as $file): ?>
+		<?php foreach($crudOutput->js_files as $file): ?>
 			<script src="<?php echo $file; ?>"></script>
 		<?php endforeach; ?>
 
@@ -20,7 +20,7 @@
     <nav class="top-bar" data-topbar>
   <ul class="title-area">
     <li class="name">
-      <h1><a href="#">Winthrop University</a></h1>
+      <h1><a href='<?php echo site_url('asc/adminView')?>'>Winthrop University</a></h1>
     </li>
     <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
   </ul>
@@ -39,7 +39,11 @@
 
     <!-- Left Nav Section -->
     <ul class="left">
-      <li><a href="#">Left Nav Button</a></li>
+      <li><a href='<?php echo site_url('asc/adminView')?>'>Seminars</a></li>
+      <li><a href='<?php echo site_url('asc/adminStudent')?>'>Students</a></li>
+      <li><a href='<?php echo site_url('asc/adminRequest')?>'>Requests</a></li>
+      <li><a href='<?php echo site_url('asc/adminLocation')?>'>Location</a></li>
+      <li><a href='<?php echo site_url('asc/adminCollege')?>'>College</a></li>
     </ul>
   </section>
 </nav>
