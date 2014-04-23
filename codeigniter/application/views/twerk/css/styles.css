@@ -1,32 +1,62 @@
 /* Author: Julie M. Brown, Patrick Rhead for Winthrop University */
+/* Author: Julie M. Brown for Winthrop University */
 
 .header {
-	padding: 0 !important;
-	margin: 0 !important;
-	position: fixed;
-	width: 100%;
-	z-index: 999;
-	min-height: 60px;
+padding: 0 !important;
+margin: 0 !important;
+position: fixed;
+width: 100%;
+z-index: 999;
+min-height: 60px;
 }
+
 
 .seminaritems {
-	background-color:#c8c8c8;
-	padding-left:10px;
+background-color:#c8c8c8;
+padding-left:10px;
 }
 
+
 .seminaritems ul {
-	display:inline-block;
-	list-style: none;
-	margin:0;
+display:inline-block;
+list-style: none;
+margin:0;
 }
 
 .seminaritems li {
-	display:inline;
-	padding-right:20px;
+display:inline;
+padding-right:20px;
 }
 
 .seminaritems .small button a {
-	margin-top: 20px;
-	vertical-align: middle;
+margin-top: 20px;
+vertical-align: middle;
 
+}
+
+.emailform {
+padding-top: 40px;
+}
+
+.emailbutton {
+margin-left: 15px;
+}
+
+input.send {
+display: none;
+}
+
+.home {
+background-image: url("http://i.imgur.com/tdqrBCa.jpg");
+height: 600px;
+text-align: center;
+margin-top:15px;
+}
+
+
+.welcome {
+background-color: rgba(255,255,255,0.84);
+display: inline-block;
+padding:25px;
+margin-top:50px;
 }

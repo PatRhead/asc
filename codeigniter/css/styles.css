@@ -40,3 +40,20 @@
 .emailbutton {
 	margin-left: 15px;
 }
+
+input.send {visibility:hidden;}
+
+.home {
+background-image: url("http://i.imgur.com/tdqrBCa.jpg");
+height: 600px;
+text-align: center;
+margin-top:15px;
+}
+
+
+.welcome {
+background-color: rgba(255,255,255,0.84);
+display: inline-block;
+padding:25px;
+margin-top:50px;
+}

@@ -1,4 +1,6 @@
 <?php
+
+//Develped by Jesse Dotson for Winthrop University//
 class asc extends CI_Controller
 {
 
@@ -75,7 +77,7 @@ class asc extends CI_Controller
 			//$rows = $newQuery->num_rows();
 			if ($newQuery->num_rows() == 0)
 			{
-				$query = $this->db->query('INSERT INTO Student (FnameLname, Email, username, College) values ("'. $FirstLast .'", "'. $data['mail'] .'", "'. $data['username'] . '", "Arts")');
+				$query = $this->db->query('INSERT INTO Student (FnameLname, Email, username, College) values ("'. $FirstLast .'", "'. $data['mail'] .'", "'. $data['username'] . '", NULL)');
 			}
 		}
 
@@ -172,7 +174,7 @@ class asc extends CI_Controller
 
 
 	//All output session data and grocery crud tables here
-	function _admin_output($output = null)
+	function _admin_output($output = null, $table = null)
 	{
 		$data = array(
 			'username' => $this->session->userdata('username')
@@ -185,6 +187,7 @@ class asc extends CI_Controller
 		}
 
 		$data['crudOutput'] = $output;
+		$data['title'] = $table;
 
 		$this->load->view('twerk/admin.php', $data);
 	}
@@ -209,9 +212,11 @@ class asc extends CI_Controller
 		$adminSeminars->set_table('Seminars');
 		$adminSeminars->set_subject('Seminar');
 		$adminSeminars->add_action('Email', '', 'asc/prepEmail', '');
+		$adminSeminars->add_action('Report', '', 'asc/seminarReport', '');
 		$output= $adminSeminars->render();
+		$table = 'Seminars';
 
-		$this->_admin_output($output);
+		$this->_admin_output($output, $table);
 		
 	}
 
@@ -222,46 +227,50 @@ class asc extends CI_Controller
 		$adminStudent->set_theme('datatables');
 		$adminStudent->set_table('Student');
 		$adminStudent->set_subject('Student');
-		$adminStudent->add_action('Email', '', 'asc/prepEmail', '');
+		$adminStudent->add_action('Report', '', 'asc/studentReport', '');
 		$output= $adminStudent->render();
+		$table = 'Student';
 
-		$this->_admin_output($output);
+		$this->_admin_output($output, $table);
 	}
 
 	function adminRequest()
 	{
 		//set admin Requests View
 		$adminRequests = new grocery_CRUD();
-		//$adminRequests->set_theme('datatables');
+		$adminRequests->set_theme('datatables');
 		$adminRequests->set_table('Request');
 		$adminRequests->set_subject('Request');
 		$output = $adminRequests->render();
+		$table = 'Requests';
 
-		$this->_admin_output($output);
+		$this->_admin_output($output, $table);
 	}
 
 	function adminLocation()
 	{
 		//set admin Location View
 		$adminLocation = new grocery_CRUD();
-		//$adminLocation->set_theme('datatables');
+		$adminLocation->set_theme('datatables');
 		$adminLocation->set_table('Location');
 		$adminLocation->set_subject('Location');
 		$output = $adminLocation->render();
+		$table = 'Locations';
 
-		$this->_admin_output($output);
+		$this->_admin_output($output, $table);
 	}
 
 	function adminCollege()
 	{
 		//set admin College View
 		$adminCollege = new grocery_CRUD();
-		//$adminCollege->set_theme('datatables');
+		$adminCollege->set_theme('datatables');
 		$adminCollege->set_table('College');
 		$adminCollege->set_subject('College');
 		$output = $adminCollege->render();
+		$table = 'Colleges';
 
-		$this->_admin_output($output);
+		$this->_admin_output($output, $table);
 	}
 
 
@@ -306,6 +315,66 @@ class asc extends CI_Controller
 
 
 	 	$this->load->view('twerk/email.php', $data);
+
+	}
+
+	function studentReport($primary_key)
+	{
+		$data = array(
+		'username' => $this->session->userdata('username'),
+		'rowKey' => $primary_key
+		);
+
+		$query = $this->db->query('SELECT FnameLname FROM Student where Student.s_id =' .$primary_key .'');
+		foreach ($query->result_array() as $row)
+		{
+		   $student = $row['FnameLname'];
+		}
+
+		$reportQuery = $this->db->query('SELECT Name FROM Student, Register, Seminars WHERE Student.s_id =' .$primary_key . ' AND Student.s_id = Register.s_id AND Register.sem_id = Seminars.sem_id');
+	 	$list = array();
+
+	 	foreach ($reportQuery->result_array() as $row)
+		{
+		   $name = $row['Name'];
+		   $list[] .= $name;
+		}
+		$data['names'] = $list;
+		$data['header'] = $student;
+
+
+	 	$this->load->view('twerk/report.php', $data);
+
+	}
+
+	function seminarReport($primary_key)
+	{
+		$data = array(
+		'username' => $this->session->userdata('username'),
+		'rowKey' => $primary_key
+		);
+
+		//query the DB for the seminars name
+		$query = $this->db->query('SELECT Name FROM Seminars where Seminars.sem_id =' .$primary_key .'');
+		foreach ($query->result_array() as $row)
+		{
+		   $seminar = $row['Name'];
+		}
+
+		//query DB for list of students names in a seminar
+		$reportQuery = $this->db->query('SELECT FnameLname FROM Student, Register, Seminars WHERE Seminars.sem_id =' .$primary_key . ' AND Student.s_id = Register.s_id AND Register.sem_id = Seminars.sem_id');
+	 	$list = array();
+
+	 	foreach ($reportQuery->result_array() as $row)
+		{
+		   $student = $row['FnameLname'];
+		   $list[] .= $student;
+		}
+		$data['names'] = $list;
+		$data['header'] = $seminar;
+
+
+	 	$this->load->view('twerk/report.php', $data);
 
 	}
 

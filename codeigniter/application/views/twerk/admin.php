@@ -7,20 +7,11 @@
 <div class="row">
   <div class="large-12 medium-12 columns">
    <div class="panel">
-     <h3>Tables</h3>
+     <h3><?php echo $title ?></h3>
      <?php echo $crudOutput->output; ?>
    </div>
  </div>
 </div>
 
-<!--
-<div class="row">
-  <div class="large-12 columns">
-   <div class="panel">
-     <h3>Current Requests</h3>
-     <?php echo $adminRequests->output; ?>
-   </div>
- </div>
-</div>-->
 
 <?php include 'footer.php'; ?>

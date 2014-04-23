@@ -10,15 +10,15 @@ CREATE TABLE Student(
 	s_id int(5) NOT NULL AUTO_INCREMENT,
 	FnameLname varchar(40) NOT NULL,
 	Email varchar(50) NOT NULL,
-        username varchar(25) NOT NULL,
-	College varchar(50) NOT NULL,
+    username varchar(25) NOT NULL,
+	College varchar(50),
 	PRIMARY KEY (s_id)
 );
 
 CREATE TABLE Admin(
 	a_id int(5) NOT NULL AUTO_INCREMENT,
 	username varchar(20) NOT NULL,
-	email varchar(23) NOT NULL,
+	email varchar(50) NOT NULL,
 	PRIMARY KEY (a_id)
 );
 

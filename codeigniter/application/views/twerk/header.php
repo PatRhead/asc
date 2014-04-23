@@ -6,6 +6,7 @@
     <title>Winthrop | ASC</title>
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/foundation.css" />
     <link rel="stylesheet" href="<?php echo base_url(); ?>css/styles.css" />
+     <script src="<?php echo base_url(); ?>js/vendor/modernizr.js"></script>
 	<?php 
 		foreach($seminars->css_files as $file): ?>
 			<link type="text/css" rel="stylesheet" href="<?php echo $file; ?>" />
@@ -14,7 +15,6 @@
 			<script src="<?php echo $file; ?>"></script>
 		<?php endforeach; ?>
 
-    <script src="<?php echo base_url(); ?>js/vendor/modernizr.js"></script>
   </head>
   <body>
     <nav class="top-bar" data-topbar>
